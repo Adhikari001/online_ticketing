@@ -1,6 +1,6 @@
 import { HiArrowRightOnRectangle } from "react-icons/hi2";
-import UserAvatar from "../features/UserAvatar";
 import CloseSidebarButton from "./CloseSidebarButton";
+import UserAvatar from "./UserAvatar";
 
 export default function Header({ showSidebar, toggleShowSidebar }) {
   return (
