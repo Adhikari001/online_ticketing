@@ -1,12 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function NavItem({ children, to, linkName }) {
   return (
     <li>
+      <Link to="/">Go to dashboard </Link>
       <NavLink
         to={to}
         className={({ isActive }) =>
-          `flex gap-2 items-center transion ease-in-out duration-300 p-2 rounded-xl ${
+          `flex gap-2 items-center transition ease-in-out duration-300 p-2 rounded-xl ${
             isActive
               ? "translate-x-2 bg-gray-300"
               : "hover:translate-x-2 hover:bg-gray-300"

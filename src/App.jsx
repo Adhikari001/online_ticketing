@@ -5,6 +5,16 @@ import Patients from "./pages/Patient";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import PatientSelfBookingPage from "./pages/PatientSelfBooking";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // staleTime: 60 * 1000,
+      staleTime: 5 * (60 * 1000), //5 minutes
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -30,7 +40,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;
