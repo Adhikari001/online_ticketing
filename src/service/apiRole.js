@@ -1,19 +1,23 @@
-import { AUTHENTICATE } from "./apiRoutes";
+import { getAuthToken, removeAuthToken } from "../utils/auth";
+import { ROLE_GET_ALL } from "./apiRoutes";
 
-export async function loginApi(data) {
+export async function getAllRoles() {
+  const token = getAuthToken();
   try {
-    const response = await fetch(AUTHENTICATE, {
-      method: "POST",
+    const response = await fetch(ROLE_GET_ALL, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(data),
     });
 
     const body = await response.json();
 
     if (response.status === 200) {
       return body;
+    } else if (response.status === 401) {
+      removeAuthToken();
     }
     throw new Error(body.message);
   } catch (error) {

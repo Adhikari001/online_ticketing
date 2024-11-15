@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { HiEye, HiEyeSlash } from "react-icons/hi2";
-import { validateEmail, validatePassword } from "../../utils/helper";
 import useLogin from "./useLogin";
+import ButtonPrimary from "../../ui/ButtonPrimary";
 
 export default function LoginForm() {
-  const { login, isLoggingIn } = useLogin();
+  const { login, isPending, error: apiError } = useLogin();
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   const [showPassword, setShowPassword] = useState();
@@ -17,7 +17,6 @@ export default function LoginForm() {
   function formSubmitted(e) {
     e.preventDefault();
     if (isFormValid()) {
-      console.log("i am here");
       login({ username, password });
     }
   }
@@ -27,18 +26,21 @@ export default function LoginForm() {
       setError("Username and name is required");
       return false;
     }
-    if (!validateEmail(username)) {
-      setError("Email not valid");
-      return false;
-    }
-    if (!validatePassword(password)) {
-      setError("Create a stronger password");
-    }
+    // if (!validateEmail(username)) {
+    //   setError("Email not valid");
+    //   return false;
+    // }
+    // if (!validatePassword(password)) {
+    //   setError("Create a stronger password");
+    // }
+    return true;
   }
+  console.log(apiError);
 
   return (
     <form className="flex flex-col gap-3" onSubmit={formSubmitted}>
       {error && <p className="text-sm text-red-500">{error}</p>}
+      {apiError && <p className="text-sm text-red-500">{apiError.message}</p>}
       <p className="flex flex-col  gap-1 items-start">
         <label htmlFor="username">Username:</label>
         <input
@@ -49,7 +51,7 @@ export default function LoginForm() {
           value={username}
           onChange={(e) => setUserName(e.target.value)}
           autoComplete="username"
-          disabled={isLoggingIn}
+          disabled={isPending}
         />
       </p>
       <p className="flex flex-col  gap-1 items-start">
@@ -63,24 +65,19 @@ export default function LoginForm() {
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            disabled={isLoggingIn}
+            disabled={isPending}
           />
           <button
             className="absolute top-2.5 right-2 disabled:bg-red-500"
             onClick={toggleShowPassword}
-            disabled={isLoggingIn}
+            disabled={isPending}
           >
             {showPassword ? <HiEye /> : <HiEyeSlash />}
           </button>
         </div>
       </p>
 
-      <button
-        type="submit"
-        className="border-2 rounded-md bg-gray-300 px-4 py-1 hover:bg-gray-400 w-min m-auto disabled:cursor-not-allowed disabled:bg-slate-100"
-      >
-        Login
-      </button>
+      <ButtonPrimary type="submit">Login</ButtonPrimary>
     </form>
   );
 }

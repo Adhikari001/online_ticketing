@@ -2,6 +2,7 @@ import {
   HiOutlineHome,
   HiOutlineUser,
   HiOutlineCog6Tooth,
+  HiOutlineUsers,
 } from "react-icons/hi2";
 
 import NavItem from "./NavItem";
@@ -23,6 +24,9 @@ function Sidebar({ showSidebar, toggleShowSidebar }) {
           </NavItem>
           <NavItem to="/patients" linkName="Patients">
             <HiOutlineUser color="#4b5563" size={20} />
+          </NavItem>
+          <NavItem to="/persons" linkName="Persons">
+            <HiOutlineUsers color="#4b5563" size={20} />
           </NavItem>
           <NavItem to="/settings" linkName="Settings">
             <HiOutlineCog6Tooth color="#4b5563" size={20} />

@@ -1,9 +1,8 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function NavItem({ children, to, linkName }) {
   return (
     <li>
-      <Link to="/">Go to dashboard </Link>
       <NavLink
         to={to}
         className={({ isActive }) =>
