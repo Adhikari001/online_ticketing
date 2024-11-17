@@ -5,15 +5,36 @@ import { validatePassword } from "../../utils/helper";
 import RadioGroup from "../../ui/RadioGroup";
 import RadioInput from "../../ui/RadioInput";
 import Dropdown from "../../ui/Dropdown";
+import useAddUpdatePerson from "./useAddUpdatePerson";
+import ButtonGroup from "../../ui/ButtonGroup";
+import ButtonSecondary from "../../ui/ButtonSecondary";
 
-function AddPersonForm({ roles }) {
-  console.log(roles);
-  const { register, handleSubmit, formState, getValues } = useForm();
+function AddPersonForm({ roles, toggleShowModal }) {
+  const { register, handleSubmit, formState, getValues, reset } = useForm({
+    defaultValues: {
+      firstName: "Saurav",
+      lastName: "Adhikari",
+      phoneNumber: "9861224028",
+      email: "sauravadhikari003@gmail.com",
+      gender: "MALE",
+      password: "Saurav@123",
+      confirmPassword: "Saurav@123",
+      roleId: 1,
+      isActive: true,
+      isDoctor: false,
+    },
+  });
+  const { addUpdatePerson, isPending } = useAddUpdatePerson();
 
   const { errors } = formState;
 
   function onSubmit(data) {
-    console.log(data);
+    // console.log(data);
+    addUpdatePerson(data, {
+      onSuccess: () => {
+        reset();
+      },
+    });
   }
 
   function onError(error) {
@@ -21,7 +42,10 @@ function AddPersonForm({ roles }) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, onError)}>
+    <form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      className="flex flex-col gap-1.5 w-[50vw] max-w-sm"
+    >
       <Input
         label="First Name *"
         type="text"
@@ -30,6 +54,7 @@ function AddPersonForm({ roles }) {
         register={{
           ...register("firstName", {
             required: "First name is required",
+            disabled: isPending,
           }),
         }}
       />
@@ -41,6 +66,7 @@ function AddPersonForm({ roles }) {
         register={{
           ...register("lastName", {
             required: "Last name is required",
+            disabled: isPending,
           }),
         }}
       />
@@ -52,6 +78,7 @@ function AddPersonForm({ roles }) {
         register={{
           ...register("phoneNumber", {
             required: "Phone number is required",
+            disabled: isPending,
           }),
         }}
       />
@@ -63,6 +90,7 @@ function AddPersonForm({ roles }) {
         register={{
           ...register("email", {
             required: "Email is required",
+            disabled: isPending,
           }),
         }}
       />
@@ -74,6 +102,7 @@ function AddPersonForm({ roles }) {
         register={{
           ...register("password", {
             required: "Password is required",
+            disabled: isPending,
             validate: (password) =>
               validatePassword(password) ||
               "Password must contain at least 8 character, uppercase lowercase, number and a special character ",
@@ -88,6 +117,7 @@ function AddPersonForm({ roles }) {
         register={{
           ...register("confirmPassword", {
             required: "This is required",
+            disabled: isPending,
             validate: (confirmPassword) =>
               confirmPassword === getValues().password ||
               "Password does not match",
@@ -98,17 +128,29 @@ function AddPersonForm({ roles }) {
         <RadioInput
           label="Male"
           value="Male"
-          register={{ ...register("gender") }}
+          register={{
+            ...register("gender", {
+              disabled: isPending,
+            }),
+          }}
         />
         <RadioInput
           label="Female"
           value="Female"
-          register={{ ...register("gender") }}
+          register={{
+            ...register("gender", {
+              disabled: isPending,
+            }),
+          }}
         />
         <RadioInput
           label="Other"
           value="Other"
-          register={{ ...register("gender") }}
+          register={{
+            ...register("gender", {
+              disabled: isPending,
+            }),
+          }}
         />
       </RadioGroup>
       <Dropdown
@@ -116,11 +158,14 @@ function AddPersonForm({ roles }) {
         id="roleId"
         error={errors?.roleId?.message}
         register={{
-          ...register("roleId", { required: "Role id is required" }),
+          ...register("roleId", {
+            required: "Role id is required",
+            disabled: isPending,
+          }),
         }}
       >
         {roles?.map((role) => (
-          <option key={role.value} value={role.vale}>
+          <option key={role.value} value={role.value}>
             {role.label}
           </option>
         ))}
@@ -131,10 +176,18 @@ function AddPersonForm({ roles }) {
         id="isDoctor"
         error={errors?.isDoctor?.message}
         register={{
-          ...register("isDoctor"),
+          ...register("isDoctor", {
+            disabled: isPending,
+          }),
         }}
       />
-      <ButtonPrimary type="submit">Submit</ButtonPrimary>
+      <ButtonGroup>
+        <ButtonSecondary type="reset" onClick={toggleShowModal}>
+          {" "}
+          Cancel
+        </ButtonSecondary>
+        <ButtonPrimary type="submit">Submit</ButtonPrimary>
+      </ButtonGroup>
     </form>
   );
 }

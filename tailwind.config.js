@@ -8,6 +8,7 @@ export default {
       },
       gridTemplateColumns: {
         "20-1fr": "15rem 1fr",
+        "person-table": "0.1fr 0.1fr 1.1fr 1.1fr 0.8fr 1.1fr 1.1fr",
       },
     },
   },

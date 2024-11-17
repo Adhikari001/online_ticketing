@@ -5,9 +5,9 @@ import ButtonPrimary from "../../ui/ButtonPrimary";
 
 export default function LoginForm() {
   const { login, isPending, error: apiError } = useLogin();
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
-  const [showPassword, setShowPassword] = useState();
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   function toggleShowPassword(e) {
     e.preventDefault();
@@ -35,13 +35,12 @@ export default function LoginForm() {
     // }
     return true;
   }
-  console.log(apiError);
 
   return (
     <form className="flex flex-col gap-3" onSubmit={formSubmitted}>
       {error && <p className="text-sm text-red-500">{error}</p>}
       {apiError && <p className="text-sm text-red-500">{apiError.message}</p>}
-      <p className="flex flex-col  gap-1 items-start">
+      <div className="flex flex-col  gap-1 items-start">
         <label htmlFor="username">Username:</label>
         <input
           className="border-solid border-2 border-gray-600 rounded-md px-2 py-1 w-full"
@@ -53,13 +52,13 @@ export default function LoginForm() {
           autoComplete="username"
           disabled={isPending}
         />
-      </p>
-      <p className="flex flex-col  gap-1 items-start">
+      </div>
+      <div className="flex flex-col  gap-1 items-start">
         <label htmlFor="password">Password</label>
         <div className="relative w-full">
           <input
             className="border-solid border-2 border-gray-600 rounded-md pl-2 pr-6 py-1 w-full "
-            type={showPassword ? "password" : "text"}
+            type={showPassword ? "text" : "password"}
             id="password"
             name="password"
             autoComplete="current-password"
@@ -75,7 +74,7 @@ export default function LoginForm() {
             {showPassword ? <HiEye /> : <HiEyeSlash />}
           </button>
         </div>
-      </p>
+      </div>
 
       <ButtonPrimary type="submit">Login</ButtonPrimary>
     </form>

@@ -8,6 +8,9 @@ import PatientSelfBookingPage from "./pages/PatientSelfBooking";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import Persons from "./pages/Persons";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { checkAuth } from "./utils/auth";
+
 // import { checkAuth } from "./utils/auth";
 
 const queryClient = new QueryClient({
@@ -21,35 +24,42 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <RootLayout />,
-    // loader: checkAuth(),
+    path: "",
+    // errorElement: <Error />,
     children: [
       {
-        index: true,
-        element: <Dashboard />,
+        path: "/",
+        element: <RootLayout />,
+        loader: checkAuth,
+        children: [
+          {
+            index: true,
+            element: <Dashboard />,
+          },
+          {
+            path: "/patients",
+            element: <Patients />,
+          },
+          {
+            path: "/persons",
+            element: <Persons />,
+          },
+          {
+            path: "/settings",
+            element: <Settings />,
+          },
+        ],
       },
-      {
-        path: "/patients",
-        element: <Patients />,
-      },
-      {
-        path: "/persons",
-        element: <Persons />,
-      },
-      {
-        path: "/settings",
-        element: <Settings />,
-      },
+      { path: "/login", element: <LoginPage /> },
+      { path: "/self-booking", element: <PatientSelfBookingPage /> },
     ],
   },
-  { path: "/login", element: <LoginPage /> },
-  { path: "/self-booking", element: <PatientSelfBookingPage /> },
 ]);
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <RouterProvider router={router} />
       <Toaster
         position="top-center"

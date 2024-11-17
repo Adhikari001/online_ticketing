@@ -38,7 +38,7 @@ export default function RootLayout() {
           showSidebar={showSidebar}
           toggleShowSidebar={toggleShowSidebar}
         />
-        <div className="flex flex-col gap-12 bg-gray-200 grow text-gray-700 z-0 items-start sm:px-1 lg:px-4 py-5">
+        <div className="flex flex-col gap-3 bg-gray-200 grow text-gray-700 z-0 items-start sm:px-1 lg:px-4 py-5">
           <Outlet />
         </div>
       </div>
