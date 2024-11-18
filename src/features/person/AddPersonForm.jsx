@@ -9,7 +9,7 @@ import useAddUpdatePerson from "./useAddUpdatePerson";
 import ButtonGroup from "../../ui/ButtonGroup";
 import ButtonSecondary from "../../ui/ButtonSecondary";
 
-function AddPersonForm({ roles, toggleShowModal }) {
+function AddPersonForm({ roles, onCloseModal }) {
   const { register, handleSubmit, formState, getValues, reset } = useForm({
     defaultValues: {
       firstName: "Saurav",
@@ -182,8 +182,7 @@ function AddPersonForm({ roles, toggleShowModal }) {
         }}
       />
       <ButtonGroup>
-        <ButtonSecondary type="reset" onClick={toggleShowModal}>
-          {" "}
+        <ButtonSecondary type="reset" onClick={() => onCloseModal?.()}>
           Cancel
         </ButtonSecondary>
         <ButtonPrimary type="submit">Submit</ButtonPrimary>

@@ -70,6 +70,7 @@ export default function LoginForm() {
             className="absolute top-2.5 right-2 disabled:bg-red-500"
             onClick={toggleShowPassword}
             disabled={isPending}
+            type="button"
           >
             {showPassword ? <HiEye /> : <HiEyeSlash />}
           </button>

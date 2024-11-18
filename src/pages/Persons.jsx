@@ -1,4 +1,4 @@
-import AddPerson from "../features/person/AddPerson";
+import PersonHeadingButtons from "../features/person/PersonHeadingButtons";
 import PersonTable from "../features/person/PersonTable";
 import Heading1 from "../ui/Heading1";
 
@@ -6,7 +6,7 @@ function Persons() {
   return (
     <>
       <Heading1>Persons</Heading1>
-      <AddPerson />
+      <PersonHeadingButtons />
       <PersonTable />
     </>
   );

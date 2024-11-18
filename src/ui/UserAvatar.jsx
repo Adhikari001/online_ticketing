@@ -1,4 +1,11 @@
+import useAuthenticatedPerson from "../features/person/useAuthenticatedPerson";
+
 export default function UserAvatar() {
+  const { person, isLoading, isError } = useAuthenticatedPerson();
+
+  const { firstName, lastName } = person;
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Something went wrong</p>;
   return (
     <div className="flex gap-5 items-center font-medium text-l text-gray-600">
       <img
@@ -6,7 +13,9 @@ export default function UserAvatar() {
         src="/default-user.jpg"
         alt="Avatar"
       />
-      <span>Saurav Adhikari</span>
+      <span>
+        {firstName} {lastName}
+      </span>
     </div>
   );
 }
