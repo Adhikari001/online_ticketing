@@ -5,8 +5,8 @@ import ButtonPrimary from "../../ui/ButtonPrimary";
 
 export default function LoginForm() {
   const { login, isPending, error: apiError } = useLogin();
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUserName] = useState("sauravadhikari001@gmail.com");
+  const [password, setPassword] = useState("Saurav@123");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   function toggleShowPassword(e) {

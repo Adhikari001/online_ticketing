@@ -3,7 +3,7 @@ export default function Spinner() {
     <div role="status" className="h-1/3 mx-auto">
       <svg
         aria-hidden="true"
-        className="inline w-8 h-8 text-gray-400 animate-spin fill-gray-800"
+        className="inline w-32 h-32 text-gray-400 animate-spin fill-gray-800"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

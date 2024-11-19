@@ -1,3 +1,4 @@
+import { getAuthToken, removeAuthToken } from "../utils/auth";
 import { securedGetRequest, securedRequestWithBody } from "../utils/helper";
 import {
   ADD_PERSON,
@@ -20,5 +21,28 @@ export async function getAllPerson() {
 }
 
 export async function getAuthenticatedPerson() {
-  return await securedGetRequest({ endPoint: GET_AUTHENTICATED_PERSON });
+  const token = getAuthToken();
+  try {
+    const response = await fetch(GET_AUTHENTICATED_PERSON, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const body = await response.json();
+
+    if (response.status === 200) {
+      return body;
+    }
+    throw new Error(body.message);
+  } catch (error) {
+    if (error instanceof TypeError && error.message === "Failed to fetch") {
+      removeAuthToken();
+      location.reload();
+    }
+    if (typeof error.message === "string") throw new Error(error.message);
+    throw new Error("Something went wrong");
+  }
 }

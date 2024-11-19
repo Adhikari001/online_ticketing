@@ -13,3 +13,7 @@ const PERSON = BASE_URL + "/person";
 export const ADD_PERSON = PERSON + "/add";
 export const GET_ALL_PERSON = PERSON + "/get-all";
 export const GET_AUTHENTICATED_PERSON = PERSON + "/authenticated-person";
+
+//patient
+const PATIENT = BASE_URL + "/patient";
+export const PATIENT_ADD_VISIT_REQUEST = PATIENT + "/add-visit-request";
