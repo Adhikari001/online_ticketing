@@ -17,3 +17,4 @@ export const GET_AUTHENTICATED_PERSON = PERSON + "/authenticated-person";
 //patient
 const PATIENT = BASE_URL + "/patient";
 export const PATIENT_ADD_VISIT_REQUEST = PATIENT + "/add-visit-request";
+export const PATIENT_GET_ALL_REQUEST = PATIENT + "/all-request";

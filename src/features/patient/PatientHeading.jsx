@@ -8,11 +8,13 @@ function PatientHeading() {
   return (
     <div className="flex w-full justify-between items-center">
       <Heading1>Patient</Heading1>
-      <Modal>
-        <Search />
-        <Filter />
-        <AddPatient />
-      </Modal>
+      <div className="flex gap-3">
+        <Modal>
+          <Search />
+          <Filter />
+          <AddPatient />
+        </Modal>
+      </div>
     </div>
   );
 }

@@ -1,11 +1,11 @@
 import PatientHeading from "../features/patient/PatientHeading";
-import PersonTable from "../features/person/PersonTable";
+import PatientTable from "../features/patient/PatientTable";
 
 function Persons() {
   return (
     <>
       <PatientHeading />
-      <PersonTable />
+      <PatientTable />
     </>
   );
 }

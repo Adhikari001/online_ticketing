@@ -2,8 +2,12 @@ import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "../../utils/const";
 import { useForm } from "react-hook-form";
 import Dropdown from "../../ui/Dropdown";
+import ButtonGroup from "../../ui/ButtonGroup";
+import ButtonSecondary from "../../ui/ButtonSecondary";
+import ButtonPrimary from "../../ui/ButtonPrimary";
+import Input from "../../ui/Input";
 
-function FilterForm() {
+function FilterForm({ onCloseModal }) {
   const [searchParam, setSearchParam] = useSearchParams();
   const searchParamPageSize = Number(searchParam.get("pageSize"));
   const pageSize =
@@ -19,8 +23,14 @@ function FilterForm() {
   });
 
   const { errors } = formState;
+
   function onSubmit(data) {
-    console.log(data);
+    searchParam.set("filter", data.filter);
+    searchParam.set("sort", data.sort);
+    searchParam.set("pageSize", data.pageSize);
+
+    setSearchParam(searchParam);
+    onCloseModal?.();
   }
 
   function onError(error) {
@@ -42,6 +52,42 @@ function FilterForm() {
         <option value="canceled">Canceled</option>
         <option value="completed">Completed</option>
       </Dropdown>
+      <Dropdown
+        label="Order By"
+        id="sort"
+        error={errors?.sort?.message}
+        register={{ ...register("sort") }}
+      >
+        <option value="addedDate-asc">Added Date (New First)</option>
+        <option value="addedDate-desc">Added Date (Old FIrst)</option>
+        <option value="updatedDate-asc">Updated Date (New First)</option>
+        <option value="updatedDate-desc">Updated Date (Old FIrst)</option>
+      </Dropdown>
+      <Input
+        label="Page Size *"
+        type="number"
+        id="pageSize"
+        error={errors?.pageSize?.message}
+        register={{
+          ...register("pageSize", {
+            required: "Page size is required",
+            max: {
+              value: 100,
+              message: "Page size can not be greater than 100",
+            },
+            min: {
+              value: 5,
+              message: "Page size can not be less than 5",
+            },
+          }),
+        }}
+      />
+      <ButtonGroup>
+        <ButtonSecondary type="reset" onClick={() => onCloseModal?.()}>
+          Cancel
+        </ButtonSecondary>
+        <ButtonPrimary type="submit">Submit</ButtonPrimary>
+      </ButtonGroup>
     </form>
   );
 }
