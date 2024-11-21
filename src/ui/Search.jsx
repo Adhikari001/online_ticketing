@@ -7,10 +7,9 @@ function Search() {
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      if (search) {
-        searchParam.set("search", search);
-        setSearchParam(searchParam);
-      }
+      if (search.length === 0 && !searchParam.get("search")) return;
+      searchParam.set("search", search);
+      setSearchParam(searchParam);
     }, 300);
     return () => {
       clearTimeout(handler);

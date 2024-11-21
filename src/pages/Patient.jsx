@@ -1,13 +1,8 @@
-import PatientHeading from "../features/patient/PatientHeading";
-import PatientTable from "../features/patient/PatientTable";
+import { useParams } from "react-router-dom";
 
-function Persons() {
-  return (
-    <>
-      <PatientHeading />
-      <PatientTable />
-    </>
-  );
+function Patient() {
+  const { patientId } = useParams();
+  return <div>{patientId}</div>;
 }
 
-export default Persons;
+export default Patient;

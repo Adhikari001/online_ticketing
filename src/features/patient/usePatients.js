@@ -8,7 +8,7 @@ export function usePatients() {
   const [searchParam] = useSearchParams();
 
   //filter
-  const search = searchParam.get("search");
+  const search = searchParam.get("search") || "";
   const pageParam = Number(searchParam.get("page"));
   const page = pageParam >= 1 ? pageParam : 1;
   const pageSizeParam = Number(searchParam.get("pageSize"));
@@ -97,5 +97,13 @@ export function usePatients() {
     });
   }
 
-  return { patients, totalPage, totalData, pageNumber, isLoading, isError };
+  return {
+    patients,
+    totalPage,
+    totalData,
+    pageNumber,
+    pageSize,
+    isLoading,
+    isError,
+  };
 }

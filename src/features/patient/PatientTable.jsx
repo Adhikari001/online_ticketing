@@ -4,11 +4,18 @@ import PatientTableBody from "./PatientTableBody";
 import { usePatients } from "./usePatients";
 
 function PatientTable() {
-  const { patients, totalPage, totalData, pageNumber, isLoading, isError } =
-    usePatients();
+  const {
+    patients,
+    totalPage,
+    totalData,
+    pageNumber,
+    pageSize,
+    isLoading,
+    isError,
+  } = usePatients();
   if (isError) return <p>Something went wrong...</p>;
   if (isLoading) return <Spinner />;
-  console.log(patients);
+
   return (
     <table className="w-full relative border-solid border border-gray-400 rounded-md bg-gray-50 ">
       <thead>
@@ -27,6 +34,7 @@ function PatientTable() {
         totalPage={totalPage}
         totalData={totalData}
         pageNumber={pageNumber}
+        pageSize={pageSize}
       />
     </table>
   );

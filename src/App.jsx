@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./pages/Login";
 import RootLayout from "./ui/Root";
-import Patients from "./pages/Patient";
+import Patients from "./pages/Patients";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import PatientSelfBookingPage from "./pages/PatientSelfBooking";
@@ -10,8 +10,8 @@ import { Toaster } from "react-hot-toast";
 import Persons from "./pages/Persons";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { checkAuth } from "./utils/auth";
-
-// import { checkAuth } from "./utils/auth";
+import Patient from "./pages/Patient";
+import Error from "./pages/Error";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,7 +25,7 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter([
   {
     path: "",
-    // errorElement: <Error />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -39,6 +39,10 @@ const router = createBrowserRouter([
           {
             path: "/patients",
             element: <Patients />,
+          },
+          {
+            path: "/patient/:patientId",
+            element: <Patient />,
           },
           {
             path: "/persons",

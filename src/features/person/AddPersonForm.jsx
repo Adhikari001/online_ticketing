@@ -9,20 +9,9 @@ import useAddUpdatePerson from "./useAddUpdatePerson";
 import ButtonGroup from "../../ui/ButtonGroup";
 import ButtonSecondary from "../../ui/ButtonSecondary";
 
-function AddPersonForm({ roles, onCloseModal }) {
+function AddPersonForm({ roles, onCloseModal, person }) {
   const { register, handleSubmit, formState, getValues, reset } = useForm({
-    defaultValues: {
-      firstName: "Saurav",
-      lastName: "Adhikari",
-      phoneNumber: "9861224028",
-      email: "sauravadhikari003@gmail.com",
-      gender: "MALE",
-      password: "Saurav@123",
-      confirmPassword: "Saurav@123",
-      roleId: 1,
-      isActive: true,
-      isDoctor: false,
-    },
+    defaultValues: person,
   });
   const { addUpdatePerson, isPending } = useAddUpdatePerson();
 
@@ -82,48 +71,54 @@ function AddPersonForm({ roles, onCloseModal }) {
           }),
         }}
       />
-      <Input
-        label="Email *"
-        type="email"
-        id="email"
-        error={errors?.email?.message}
-        register={{
-          ...register("email", {
-            required: "Email is required",
-            disabled: isPending,
-          }),
-        }}
-      />
-      <Input
-        label="Password *"
-        type="password"
-        id="password"
-        error={errors?.password?.message}
-        register={{
-          ...register("password", {
-            required: "Password is required",
-            disabled: isPending,
-            validate: (password) =>
-              validatePassword(password) ||
-              "Password must contain at least 8 character, uppercase lowercase, number and a special character ",
-          }),
-        }}
-      />
-      <Input
-        label="Confirm Password *"
-        type="password"
-        id="confirmPassword"
-        error={errors?.confirmPassword?.message}
-        register={{
-          ...register("confirmPassword", {
-            required: "This is required",
-            disabled: isPending,
-            validate: (confirmPassword) =>
-              confirmPassword === getValues().password ||
-              "Password does not match",
-          }),
-        }}
-      />
+      {!person && (
+        <Input
+          label="Email *"
+          type="email"
+          id="email"
+          error={errors?.email?.message}
+          register={{
+            ...register("email", {
+              required: "Email is required",
+              disabled: isPending,
+            }),
+          }}
+        />
+      )}
+      {!person && (
+        <Input
+          label="Password *"
+          type="password"
+          id="password"
+          error={errors?.password?.message}
+          register={{
+            ...register("password", {
+              required: "Password is required",
+              disabled: isPending,
+              validate: (password) =>
+                validatePassword(password) ||
+                "Password must contain at least 8 character, uppercase lowercase, number and a special character ",
+            }),
+          }}
+        />
+      )}
+      {!person && (
+        <Input
+          label="Confirm Password *"
+          type="password"
+          id="confirmPassword"
+          error={errors?.confirmPassword?.message}
+          register={{
+            ...register("confirmPassword", {
+              required: "This is required",
+              disabled: isPending,
+              validate: (confirmPassword) =>
+                confirmPassword === getValues().password ||
+                "Password does not match",
+            }),
+          }}
+        />
+      )}
       <RadioGroup label="Select gender *" error={errors?.gender?.message}>
         <RadioInput
           label="Male"

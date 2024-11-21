@@ -8,7 +8,9 @@ function RadioInput({ label, value, register }) {
         value={value}
         {...register}
       />
-      <label htmlFor={value}>{label} </label>
+      <label htmlFor={value} className="text-nowrap">
+        {label}{" "}
+      </label>
     </p>
   );
 }

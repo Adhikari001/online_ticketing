@@ -2,7 +2,6 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useSearchParams } from "react-router-dom";
 
 function TableFooter({ totalPage, totalData, pageNumber, pageSize }) {
-  console.log(totalPage, totalData, pageNumber);
   const [searchParams, setSearchParams] = useSearchParams();
   function nextPage() {
     const next = pageNumber === totalPage ? pageNumber : pageNumber + 1;
@@ -18,18 +17,21 @@ function TableFooter({ totalPage, totalData, pageNumber, pageSize }) {
     setSearchParams(searchParams);
   }
 
+  console.log(totalPage, totalData, pageNumber, pageSize);
+  console.log((pageNumber - 1) * pageSize + 1);
+
   if (totalPage <= 1) return null;
   return (
-    <footer className="flex justify-center p-5 bg-gray-50">
-      <div className="w-full flex items-center justify-between">
-        <p className="flex gap-1.5">
-          Showing <span>{(pageNumber - 1) * pageSize + 1}</span> to{" "}
+    <tfoot className="flex justify-center p-5 bg-gray-50">
+      <tr className="w-full flex items-center justify-between">
+        <td className="flex gap-1.5">
+          Showing <span>{(pageNumber - 1) * pageSize + 1}</span> to
           <span>
             {pageNumber === totalPage ? totalData : pageNumber * pageSize}
           </span>
           of <span>{totalData}</span> results
-        </p>
-        <div className="flex gap-2">
+        </td>
+        <td className="flex gap-2">
           <button
             onClick={prevPage}
             className={`flex items-center ${
@@ -48,9 +50,9 @@ function TableFooter({ totalPage, totalData, pageNumber, pageSize }) {
             <span>Next</span>
             <HiChevronRight />
           </button>
-        </div>
-      </div>
-    </footer>
+        </td>
+      </tr>
+    </tfoot>
   );
 }
 
